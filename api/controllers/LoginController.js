@@ -24,12 +24,20 @@ module.exports = {
    * Overrides for the settings in `config/controllers.js`
    * (specific to LoginController)
    */
-//  _ config: {
-//    },
 
     show: function(req, res) {
          
+    },
+
+    processLogin: function(req, res) {
+        var account = req.param('account'),
+	    password = req.param('password');
+	
+	if (account === 'yahoo' && password === '123') {
+	    res.redirect('http://www.yahoo.com');
+	} else {
+	    res.redirect('http://www.google.com');	
+	}
     }
 
-  
 };
