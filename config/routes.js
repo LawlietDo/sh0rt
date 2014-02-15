@@ -43,6 +43,16 @@ module.exports.routes = {
   '/processLogin': {
     controller: 'login',
     action: 'processLogin'
+  },
+
+  '/user/create': {
+    controller: 'user',
+    action: 'create'
+  },
+
+  '/user/show': {
+    controller: 'user',
+    action: 'show'
   }
 
   /*
