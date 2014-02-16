@@ -45,6 +45,12 @@ module.exports.routes = {
     action: 'processLogin'
   },
 
+  '/user': {
+    controller: 'user',
+    action: 'index',
+    view: 'user/index'
+  },
+
   '/user/create': {
     controller: 'user',
     action: 'create'
@@ -53,7 +59,12 @@ module.exports.routes = {
   '/user/show': {
     controller: 'user',
     action: 'show'
-  }
+  },
+
+  '/myshort': {
+    controller: 'myshort',
+    action: 'show'
+  }  
 
   /*
   // But what if you want your home page to display

@@ -25,57 +25,50 @@ module.exports = {
    _config: {
     },
 
+    index: function(req, res) {    
+    },
+
     create: function(req, res) {
 	var mongodb = require('mongodb');
 	var mongodbServer = new mongodb.Server('localhost', 27017, { auto_reconnect: true, poolSize: 10, safe:false });
 	var db = new mongodb.Db('sh0rtdb', mongodbServer);
 
-	db.open(function() {
+	var account = req.param('account'),
+	    password = req.param('password'),
+	    captcha = req.param('captcha');
 
+	if (captcha !== 'lawlietdo') {
+	    res.redirect('./login');
+	    return;
+	}
+
+	db.open(function() {
 	    /* Select 'user' collection */
             db.collection('user', function(err, collection) {
-
                 /* Insert a data */
                 collection.insert({
-                    name: 'Fred Chien',
-                    email: 'cfsghost@gmail.com'
+                    account: account,
+                    password: password 
 	        }, function(err, data) {
             	    if (data) {
                         console.log('Successfully Insert');
             	    } else {
                 	console.log('Failed to Insert');
             	    }
+		    res.redirect('./login');
         	});
 	    });
         });
     },
 
     show: function(req, res) {
-	var mongodb = require('mongodb');
-        var mongodbServer = new mongodb.Server('localhost', 27017, { auto_reconnect: true, poolSize: 10 });
-        var db = new mongodb.Db('sh0rtdb', mongodbServer);
-
-        db.open(function() {
-            /* Select 'user' collection */
-            db.collection('user', function(err, collection) {
-	   	 /* Querying */
-	        collection.find({ name: 'Fred Chien' }, function(err, data) {
-	            /* Found this People */
-        	    if (data) {
-	        	data.toArray(function(err, result) { 
-		    	    if(err) {
-			        console.log("ToArray Error"); 
-			    } else { 
-				console.log(result);
-			        console.log('Name: ' + result[0].name + ', email: ' + result[0].email);
-			    }
-			});
-	            } else {
-        	        console.log('Cannot found');
-                    }
-		});
-	    });
-        });
+    	User.findAll(function(err, result) {
+	    if (err) {
+		res.json({});
+	    } else {
+	    	res.json(result);
+	    }
+	});
     }
 
 };
