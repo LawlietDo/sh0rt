@@ -63,7 +63,8 @@ module.exports.routes = {
 
   '/myshort': {
     controller: 'myshort',
-    action: 'show'
+    action: 'show',
+    view: 'myshort/show'
   }  
 
   /*

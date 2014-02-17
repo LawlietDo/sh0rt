@@ -25,9 +25,11 @@ module.exports = {
    show: function (req, res) {
     console.log(MyShort.create()); 
     // Send a JSON response
+    /*
     return res.json({
       hello: 'world'
     });
+    */
   },
 
 
